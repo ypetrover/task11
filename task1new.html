@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>task 1 Yedidya Petrover</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <style>
+        body {
+            margin: 0;
+        }
+        section {
+            display: flex;
+            height: 100vh;
+            background-color: lightcyan;
+        }
+        div {
+            width: 50%;
+            margin: 50px;
+        }
+        canvas {
+            background-color: lightcoral;
+        }
+        #buttonCl{
+            width: 500px;
+        }
+        input{
+            width: 150px;
+        }
+        span{
+            -webkit-appearance: textfield;
+             background-color: white;
+            -webkit-rtl-ordering: logical;
+            cursor: text;
+            padding: 1px;
+            border-width: 2px;
+            border-style: inset;
+            border-color: initial;
+            border-image: initial;
+            width: 150px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body onload="circles()">
+    <section>
+        <div id="lefter">
+            <h1>Input radius value and get the volume of a sphere</h1>
+            Radius:<br>
+            <input id="radius" type="text" title="Radius"><br>
+            volume:<br>
+            <span id="volume"></span><br>
+            <button class="btn btn-success" onclick="calculate()">Clic here</button>
+        </div>
+        <div id="divCanvas">
+            <h1>Drawing on Canvas!</h1>
+            <canvas id="radiusCan" width="500" height="500"></canvas>
+            <button id="buttonCl" class="btn btn-success" onclick="clearCanvas()">Clear canvas</button>
+        </div>
+    </section>
+
+
+    <script>
+        var radius, c;
+        function calculate() {
+            radius = document.getElementById('radius').value;
+            if (isNaN(radius)) {
+                alert('This is not a number!');
+            } else {
+                var calculator = (4 * Math.PI) * (Math.pow(radius, 3)) / 3;
+                document.getElementById('volume').innerHTML = calculator + '<br>';
+                if (radius > 250) {
+                    alert("We can't show your circle, becouse the radius is more than 250");
+                } else {
+                    paint();
+                }
+            }
+        }
+        function paint() {
+            c = document.getElementById("radiusCan").getContext("2d");
+            c.beginPath();
+            c.arc(250, 250, radius, 0, 2 * Math.PI);
+            c.stroke();
+        }
+        function clearCanvas() {
+            c.clearRect(0, 0, 500, 500);
+        }
+        function circles() {
+            var ir = 0;
+            var criz = setInterval(cir, 100);
+            function cir() {
+                    if (ir > 250) {
+                        clearInterval(criz);
+                    } else {
+                        c = document.getElementById("radiusCan").getContext("2d");
+                        c.beginPath();
+                        c.arc(250, 250, ir, 0, 2 * Math.PI);
+                        c.stroke();
+                        ir++;
+                    }
+                }
+            }
+    </script>
+</body>
+
+</html>
